@@ -137,7 +137,8 @@ jobs:
     name: Quality Checks
     uses: canonical/observability/.github/workflows/_charm-quality-checks.yaml@v1
     needs: [define-matrix]
-    secrets: inherit
+    secrets:
+      CHARMHUB_TOKEN: ${{ secrets.CHARMHUB_TOKEN }}
     with:
       charm-path: ${{ inputs.charm-path }}
       provider: ${{ inputs.provider }}
@@ -154,7 +155,8 @@ jobs:
     uses: canonical/observability/.github/workflows/_charm-release.yaml@v1
     permissions:
       contents: write
-    secrets: inherit
+    secrets:
+      CHARMHUB_TOKEN: ${{ secrets.CHARMHUB_TOKEN }}
     with:
       release-channel: "${{ needs.define-matrix.outputs.release-channel }}"
       charm-path: "${{ inputs.charm-path }}"
